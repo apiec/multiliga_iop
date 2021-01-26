@@ -10,6 +10,5 @@ namespace MultiLiga_IOP.Services
     public interface IDisciplineService
     {
         Task<IList<Discipline>> GetDisciplines();
-        Task<IList<Discipline>> SearchDiscipline(string name);
     }
 }

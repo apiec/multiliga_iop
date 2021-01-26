@@ -21,14 +21,5 @@ namespace MultiLiga_IOP.Services
         {
             return await _ctx.Disciplines.ToListAsync();
         }
-
-        public async Task<IList<Discipline>> SearchDiscipline(string keyword)
-        {
-            var result = await _ctx.Disciplines
-                .Where(d => EF.Functions.Like(d.Name, keyword))
-                .ToListAsync();
-
-            return result;
-        }
     }
 }

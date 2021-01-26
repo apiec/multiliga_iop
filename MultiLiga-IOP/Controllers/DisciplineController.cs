@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
 using MultiLiga_IOP.Services;
 using MultiLiga_IOP.Models;
 
@@ -22,9 +21,17 @@ namespace MultiLiga_IOP.Controllers
         }
 
         public async Task<IActionResult> Get()
-        {
-            return Ok(await _disciplineService.GetDisciplines());
+        {   
+            try
+            {
+                return Ok(await _disciplineService.GetDisciplines());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    e.Message);
+            }
         }
-        
     }
 }

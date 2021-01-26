@@ -17,24 +17,15 @@ namespace MultiLiga_IOP.Services
             _ctx = ctx;
         }
 
-        public async Task<IList<League>> GetLeagues(int disciplineId)
+        public async Task<IList<League>> GetLeagues(int? disciplineId)
         {
-            var leagues = _ctx.Leagues
-                .Where(l => l.DisciplineId == disciplineId)
-                .ToList();
+            var query = _ctx.Leagues.AsQueryable();
+            if (disciplineId is object)
+            {
+                query = query.Where(l => l.DisciplineId == disciplineId);
+            }
 
-            return leagues;
-        }
-
-        public async Task<IList<League>> SearchLeagues(int disciplineId, string keyword)
-        {
-            var result = _ctx.Leagues
-                .Where(l => 
-                    l.DisciplineId == disciplineId && 
-                    EF.Functions.Like(l.Name, keyword))
-                .ToList();
-
-            return result;
+            return await query.ToListAsync();
         }
     }
 }

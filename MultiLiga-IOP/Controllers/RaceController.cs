@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,35 +17,20 @@ namespace MultiLiga_IOP.Controllers
             _raceService = raceService;
         }
 
-        public async Task<IActionResult> Get([FromQuery] int? seasonId, [FromQuery] string userId, [FromQuery] string keyword)
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] int? seasonId, [FromQuery] string userId)
         {
-            if (seasonId is null && userId is null)
-            {
-                return BadRequest();
-            }
+            return Ok(await _raceService.GetRaces(seasonId, userId));
+        }
 
-            if (seasonId is object)
+        [HttpGet("getusers")]
+        public async Task<IActionResult> GetUsers([FromQuery] int? raceId)
+        {
+            if (raceId is null)
             {
-                if (keyword is null)
-                {
-                    return Ok(await _raceService.GetRacesBySeason((int)seasonId));
-                }
-                else
-                {
-                    return Ok(await _raceService.SearchRacesBySeason((int)seasonId, keyword));
-                }
+                return BadRequest("raceId is null");
             }
-            else
-            {
-                if (keyword is null)
-                {
-                    return Ok(await _raceService.GetRacesByUser(userId));
-                }
-                else
-                {
-                    return Ok(await _raceService.SearchRacesByUser(userId, keyword));
-                }
-            }
+            return Ok(await _raceService.GetUsersSignedUpForRace((int)raceId));
         }
 
         [HttpPost]
@@ -55,7 +41,15 @@ namespace MultiLiga_IOP.Controllers
                 return BadRequest();
             }
 
-            return Ok(await _raceService.SignUserUp(userId, (int)raceId));
+            var isOk = await _raceService.SignUserUp(userId, (int)raceId);
+            if (isOk)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

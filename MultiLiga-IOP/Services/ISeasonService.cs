@@ -8,8 +8,6 @@ namespace MultiLiga_IOP.Services
 {
     public interface ISeasonService
     {
-        Task<IList<Season>> GetSeasonsByLeague(int leagueId);
-        Task<IList<Season>> SearchSeasonsByLeague(int leagueId, string keyword);
-
+        Task<IList<Season>> GetSeasonsByLeague(int? leagueId);
     }
 }

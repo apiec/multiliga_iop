@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MultiLiga_IOP.Models;
 using MultiLiga_IOP.Data;
 using Microsoft.EntityFrameworkCore;
+using MultiLiga_IOP.POCOs;
 
 namespace MultiLiga_IOP.Services
 {
@@ -17,40 +18,27 @@ namespace MultiLiga_IOP.Services
             _ctx = ctx;
         }
 
-        public async Task<IList<Race>> GetRacesBySeason(int seasonId)
+        public async Task<IList<Race>> GetRaces(int? seasonId, string userId)
         {
-            var result = await _ctx.Races
-                .Where(r => r.SeasonId == seasonId)
-                .ToListAsync();
+            var query = _ctx.Races.AsQueryable();
+            if (seasonId is object)
+            {
+                query = query.Where(r => r.SeasonId == seasonId);
+            }
+            if (userId is object)
+            {
+                query = query.Where(r => 
+                    r.SignUps.Any(s => s.ApplicationUserId == userId));
+            }
 
-            return result;
+            return await query.ToListAsync();
         }
 
-        public async Task<IList<Race>> GetRacesByUser(string userId)
+        public async Task<IList<UserPoco>> GetUsersSignedUpForRace(int raceId)
         {
-            var result = await _ctx.Races
-                .Where(r => 
-                    r.SignUps.Any(su => su.ApplicationUserId == userId))
-                .ToListAsync();
-
-            return result;
-        }
-
-        public async Task<IList<Race>> SearchRacesBySeason(int seasonId, string keyword)
-        {
-            var result = await _ctx.Races
-                .Where(r => r.SeasonId == seasonId && EF.Functions.Like(r.Name, keyword))
-                .ToListAsync();
-
-            return result;
-        }
-
-        public async Task<IList<Race>> SearchRacesByUser(string userId, string keyword)
-        {
-            var result = await _ctx.Races
-                .Where(r =>
-                    r.SignUps.Any(su => su.ApplicationUserId == userId) &&
-                    EF.Functions.Like(r.Name, keyword))
+            var result = await _ctx.Users
+                .Where(u => u.RaceSignUps.Any(su => su.RaceId == raceId))
+                .Select(u => new UserPoco(u))
                 .ToListAsync();
 
             return result;

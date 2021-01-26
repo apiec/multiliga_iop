@@ -9,8 +9,6 @@ namespace MultiLiga_IOP.Services
 {
     public interface ILeagueService
     {
-        Task<IList<League>> GetLeagues(int disciplineId);
-
-        Task<IList<League>> SearchLeagues(int disciplineId, string keyword);
+        Task<IList<League>> GetLeagues(int? disciplineId);
     }
 }

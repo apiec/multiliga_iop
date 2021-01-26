@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +17,18 @@ namespace MultiLiga_IOP.Controllers
             _leagueService = leagueService;
         }
 
-        public async Task<IActionResult> Get([FromQuery] int? disciplineId, [FromQuery] string keyword)
+        public async Task<IActionResult> Get([FromQuery] int? disciplineId)
         {
-            if (disciplineId is null)
+            try
             {
-                return BadRequest();
+                return Ok(await _leagueService.GetLeagues(disciplineId));
             }
-
-            if (keyword is null)
+            catch (Exception e)
             {
-                return Ok(await _leagueService.GetLeagues((int)disciplineId));
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    e.Message);
             }
-
-            return Ok(await _leagueService.SearchLeagues((int)disciplineId, keyword));
         }
     }
 }

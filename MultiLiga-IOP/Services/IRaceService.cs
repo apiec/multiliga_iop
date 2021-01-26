@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MultiLiga_IOP.Models;
+using MultiLiga_IOP.POCOs;
 
 namespace MultiLiga_IOP.Services
 {
     public interface IRaceService
     {
-        public Task<IList<Race>> GetRacesBySeason(int seasonId);
-        public Task<IList<Race>> GetRacesByUser(string userId);
-        public Task<IList<Race>> SearchRacesBySeason(int seasonId, string keyword);
-        public Task<IList<Race>> SearchRacesByUser(string userId, string keyword);
-
-        public Task<bool> SignUserUp(string userId, int raceId);
+        Task<IList<Race>> GetRaces(int? seasonId, string userId);
+        Task<IList<UserPoco>> GetUsersSignedUpForRace(int raceId);
+        Task<bool> SignUserUp(string userId, int raceId);
 
     }
 }
