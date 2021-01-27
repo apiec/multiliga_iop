@@ -8,6 +8,7 @@ import { ApplicationPaths } from './components/api-authorization/ApiAuthorizatio
 import DisciplinePage from './components/DisciplinePage'
 import LeaguePage from './components/LeaguePage'
 import SeasonPage from './components/SeasonPage'
+import RacesPage from './components/RacesPage'
 
 import './custom.css'
 
@@ -22,6 +23,8 @@ export default class App extends Component {
         <Route path='/discipline' component={DisciplinePage} />
         <Route path='/league' component={LeaguePage} />
         <Route path='/season' component={SeasonPage} />
+        <Route path='/race' component={RacesPage} />
+
       </Layout>
     );
   }
