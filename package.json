@@ -1,0 +1,24 @@
+{
+  "name": "multiliga_iwzop",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000m\u0000u\u0000l\u0000t\u0000i\u0000l\u0000i\u0000g\u0000a\u0000_\u0000i\u0000o\u0000p\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "dependencies": {
+    "react-popper": "^2.2.4",
+    "react-popper-tooltip": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiec/multiliga_iop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apiec/multiliga_iop/issues"
+  },
+  "homepage": "https://github.com/apiec/multiliga_iop#readme"
+}
