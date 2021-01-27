@@ -19,9 +19,9 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-        <Route path='/discipline' component={DisciplinePage} />
-        <Route path='/league' component={LeaguePage} />
-        <Route path='/season' component={SeasonPage} />
+        <Route path='/discipline' component={(props) => <DisciplinePage {...props} key={window.location.pathname}/>} />
+        <Route path='/league' component={(props) => <LeaguePage {...props} key={window.location.pathname}/>} />
+        <Route path='/season' component={(props) => <SeasonPage {...props} key={window.location.pathname}/>} />
       </Layout>
     );
   }
