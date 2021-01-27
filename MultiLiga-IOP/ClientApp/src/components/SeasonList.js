@@ -22,10 +22,10 @@ const SeasonList = ({ seasonList = [], leagueNames = {}, disciplineNames = {} })
                                 leagueNames[season.leagueId] ?
                                 <>
                                     <td>
-                                        <Link to={`/season/?leagueId=${season.leagueId}`}> {leagueNames[season.leagueId] ? leagueNames[season.leagueId].name : "-"} </Link>
+                                        <Link to={`/season/?leagueId=${season.leagueId}`}> {leagueNames[season.leagueId].name} </Link>
                                     </td>
                                     <td>
-                                        <Link to={`/league/?disciplineId=${leagueNames[season.leagueId] ? leagueNames[season.leagueId].disciplineId : "-"}`}> {disciplineNames[leagueNames[season.leagueId].disciplineId]} </Link>
+                                        <Link to={`/league/?disciplineId=${leagueNames[season.leagueId].disciplineId}`}> {disciplineNames[leagueNames[season.leagueId].disciplineId]} </Link>
                                     </td>
                                 </>
                                 :
