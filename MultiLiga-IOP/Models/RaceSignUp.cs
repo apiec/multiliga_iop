@@ -15,7 +15,7 @@ namespace MultiLiga_IOP.Models
         [field: NonSerialized]
         public virtual Race Race { get; set; }
 
-        public TimeSpan RaceTime { get; set; }
+        public TimeSpan Result { get; set; }
         public bool ShowedUp { get; set; }
     }
 }

@@ -9,7 +9,7 @@ import DisciplinePage from './components/DisciplinePage'
 import LeaguePage from './components/LeaguePage'
 import SeasonPage from './components/SeasonPage'
 import RacesPage from './components/RacesPage'
-
+import RaceDetailsPage from './components/RaceDetailsPage'
 import './custom.css'
 
 export default class App extends Component {
@@ -20,11 +20,11 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-        <Route path='/discipline' component={DisciplinePage} />
-        <Route path='/league' component={LeaguePage} />
-        <Route path='/season' component={SeasonPage} />
-        <Route path='/race' component={RacesPage} />
-
+        <Route path='/discipline' component={(props) => <DisciplinePage {...props} key={window.location.pathname}/>} />
+        <Route path='/league' component={(props) => <LeaguePage {...props} key={window.location.pathname}/>} />
+        <Route path='/season' component={(props) => <SeasonPage {...props} key={window.location.pathname}/>} />
+        <Route path='/race/details' component={(props) => <RaceDetailsPage {...props} key={window.location.pathname} />} />
+        <Route path='/race' component={(props) => <RacesPage {...props} key={window.location.pathname} />} />
       </Layout>
     );
   }

@@ -17,6 +17,18 @@ namespace MultiLiga_IOP.Services
         {
             _ctx = ctx;
         }
+        
+
+        public async Task<Race> GetRace(int? raceId)
+        {
+            if (raceId is null)
+            {
+                return null;
+            }
+
+            return await _ctx.Races.FirstOrDefaultAsync(r => r.Id == raceId);
+        }
+
 
         public async Task<IList<Race>> GetRaces(int? disciplineId, int? leagueId, int? seasonId, string userId)
         {
@@ -41,6 +53,20 @@ namespace MultiLiga_IOP.Services
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<IList<RaceResultPoco>> GetResults(int raceId)
+        {
+            var result = await _ctx.RaceSignUps
+                .Where(su => su.RaceId == raceId)
+                .Select(su => new RaceResultPoco
+                {
+                    User = new UserPoco(su.ApplicationUser),
+                    Result = su.Result.ToString(@"hh\:mm\:ss")
+                })
+                .ToListAsync();
+            
+            return result;
         }
 
         public async Task<IList<UserPoco>> GetUsersSignedUpForRace(int raceId)
