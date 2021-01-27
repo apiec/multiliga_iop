@@ -17,9 +17,14 @@ namespace MultiLiga_IOP.Services
             _ctx = ctx;
         }
 
-        public async Task<IList<Season>> GetSeasonsByLeague(int? leagueId)
+        public async Task<IList<Season>> GetSeasons(int? disciplineId, int? leagueId)
         {
             var query = _ctx.Seasons.AsQueryable();
+
+            if (disciplineId is object)
+            {
+                query = query.Where(s => s.League.DisciplineId == leagueId);
+            }
 
             if (leagueId is object)
             {

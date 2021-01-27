@@ -8,7 +8,7 @@ const DisciplineList = ({ disciplineList = [] }) => {
                 if (data) {
                     return (
                         <div key={data.name}>
-                            <Link to={`/league/get?disciplineId=${data.id}`}> {data.name} </Link>
+                            <Link to={`/league?disciplineId=${data.id}`}> {data.name} </Link>
                         </div>
                     )
                 }

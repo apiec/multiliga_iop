@@ -9,7 +9,7 @@ namespace MultiLiga_IOP.Services
 {
     public interface IRaceService
     {
-        Task<IList<Race>> GetRaces(int? seasonId, string userId);
+        Task<IList<Race>> GetRaces(int? disciplineId, int? leagueId, int? seasonId, string userId);
         Task<IList<UserPoco>> GetUsersSignedUpForRace(int raceId);
         Task<bool> SignUserUp(string userId, int raceId);
 

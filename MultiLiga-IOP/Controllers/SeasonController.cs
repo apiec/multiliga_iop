@@ -18,11 +18,11 @@ namespace MultiLiga_IOP.Controllers
             _seasonService = seasonService;
         }
 
-        public async Task<IActionResult> Get([FromQuery] int? leagueId)
+        public async Task<IActionResult> Get([FromQuery] int? disciplineId, [FromQuery] int? leagueId)
         {
             try
             {
-                return Ok(await _seasonService.GetSeasonsByLeague(leagueId));
+                return Ok(await _seasonService.GetSeasons(disciplineId, leagueId));
             }
             catch (Exception e)
             {

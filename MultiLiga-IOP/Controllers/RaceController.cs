@@ -18,9 +18,16 @@ namespace MultiLiga_IOP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] int? seasonId, [FromQuery] string userId)
+        public async Task<IActionResult> Get([FromQuery] int? disciplineId, [FromQuery] int? leagueId, [FromQuery] int? seasonId, [FromQuery] string userId)
         {
-            return Ok(await _raceService.GetRaces(seasonId, userId));
+            try
+            {
+                return Ok(await _raceService.GetRaces(disciplineId, leagueId, seasonId, userId));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         [HttpGet("getusers")]

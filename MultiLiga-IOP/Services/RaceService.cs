@@ -18,9 +18,18 @@ namespace MultiLiga_IOP.Services
             _ctx = ctx;
         }
 
-        public async Task<IList<Race>> GetRaces(int? seasonId, string userId)
+        public async Task<IList<Race>> GetRaces(int? disciplineId, int? leagueId, int? seasonId, string userId)
         {
             var query = _ctx.Races.AsQueryable();
+
+            if (disciplineId is object)
+            {
+                query = query.Where(r => r.Season.League.DisciplineId == disciplineId);
+            }
+            if (leagueId is object)
+            {
+                query = query.Where(r => r.Season.LeagueId == leagueId);
+            }
             if (seasonId is object)
             {
                 query = query.Where(r => r.SeasonId == seasonId);

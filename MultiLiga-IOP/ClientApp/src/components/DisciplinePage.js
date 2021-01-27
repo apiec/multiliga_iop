@@ -2,7 +2,7 @@
 import SearchBar from './SearchBar';
 import DisciplineList from './DisciplineList';
 
-const DisciplineSearchPage = (props) => {
+const DisciplinePage = (props) => {
   const [input, setInput] = useState('');
   const [disciplineListDefault, setDisciplineListDefault] = useState();
   const [disciplineList, setDisciplineList] = useState();
@@ -16,11 +16,11 @@ const DisciplineSearchPage = (props) => {
        });}
 
   const updateInput = async (input) => {
-     const filtered = disciplineListDefault.filter(country => {
-      return country.name.toLowerCase().includes(input.toLowerCase())
-     })
-     setInput(input);
-     setDisciplineList(filtered);
+    const filtered = disciplineListDefault.filter(discipline => {
+      return discipline.name.toLowerCase().includes(input.toLowerCase())
+    })
+    setInput(input);
+    setDisciplineList(filtered);
   }
 
   useEffect( () => {fetchData()},[]);
@@ -37,4 +37,4 @@ const DisciplineSearchPage = (props) => {
    );
 }
 
-export default DisciplineSearchPage
+export default DisciplinePage
