@@ -18,11 +18,18 @@ namespace MultiLiga_IOP.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] int? disciplineId, [FromQuery] int? leagueId, [FromQuery] int? seasonId, [FromQuery] string userId)
+        public async Task<IActionResult> Get([FromQuery] int? disciplineId, [FromQuery] int? leagueId, [FromQuery] int? seasonId, [FromQuery] string userId, [FromQuery] int? raceId)
         {
             try
             {
-                return Ok(await _raceService.GetRaces(disciplineId, leagueId, seasonId, userId));
+                if (raceId is object)
+                {
+                    return Ok(await _raceService.GetRace(raceId));
+                }
+                else
+                {
+                    return Ok(await _raceService.GetRaces(disciplineId, leagueId, seasonId, userId));
+                }
             }
             catch (Exception e)
             {
@@ -30,7 +37,7 @@ namespace MultiLiga_IOP.Controllers
             }
         }
 
-        [HttpGet("getusers")]
+        [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery] int? raceId)
         {
             if (raceId is null)
@@ -38,6 +45,16 @@ namespace MultiLiga_IOP.Controllers
                 return BadRequest("raceId is null");
             }
             return Ok(await _raceService.GetUsersSignedUpForRace((int)raceId));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetResults([FromQuery] int? raceId)
+        {
+            if (raceId is null)
+            {
+                return BadRequest("raceId is null");
+            }
+            return Ok(await _raceService.GetResults((int)raceId));
         }
 
         [HttpPost]

@@ -11,6 +11,7 @@ namespace MultiLiga_IOP.POCOs
     {
         public UserPoco(ApplicationUser user) 
         {
+            Id = user.Id;
             UserName = user.UserName;
         }
 
