@@ -4,6 +4,9 @@
   "description": "��#\u0000 \u0000m\u0000u\u0000l\u0000t\u0000i\u0000l\u0000i\u0000g\u0000a\u0000_\u0000i\u0000o\u0000p\u0000\r\u0000 \u0000",
   "main": "index.js",
   "dependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.6.0",
+    "react-modal": "^3.12.1",
     "react-popper": "^2.2.4",
     "react-popper-tooltip": "^4.0.1"
   },

@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import authService from './api-authorization/AuthorizeService'
 import { Link } from 'react-router-dom';
+import RaceSignupButton from './RaceSignupButton'
 
 const RacesList = ({ racesList = [], seasonList = {}, leagueNames = {}, disciplineNames = {} }) => {
+    
+    const [userId, setUserId] = useState();
+
+    useEffect( () => {
+        const f = async () => {
+            await authService.getUser()
+            .then(user => setUserId(user.sub))
+        }
+        f();
+    }, [])
+    
     return (
         <>
             <table className='table table-striped' aria-labelledby="tableLabel">
@@ -11,6 +24,7 @@ const RacesList = ({ racesList = [], seasonList = {}, leagueNames = {}, discipli
                         <th>Season</th>
                         <th>League</th>
                         <th>Discipline</th>
+                        <th>Sign up</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +43,9 @@ const RacesList = ({ racesList = [], seasonList = {}, leagueNames = {}, discipli
                                 </td>
                                 <td>
                                     <Link to={`/league/?disciplineId=${leagueNames[seasonList[race.seasonId].leagueId].disciplineId}`}> {disciplineNames[leagueNames[seasonList[race.seasonId].leagueId].disciplineId]} </Link>
+                                </td>
+                                <td>
+                                    <RaceSignupButton userId={userId} raceId={race.id}/>
                                 </td>
                             </>
                             :
