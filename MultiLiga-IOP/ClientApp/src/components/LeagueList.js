@@ -15,7 +15,7 @@ const LeagueList = ({ leagueList = [], disciplineNames = {} }) => {
                     {leagueList.map(league =>
                         <tr key={league.id}>
                             <td>
-                                <Link to={`/season/get?seasonId=${league.id}`}> {league.name} </Link>
+                                <Link to={`/season/get?leagueId=${league.id}`}> {league.name} </Link>
                             </td>
                             <td>
                                 <Link to={`/league/?disciplineId=${league.disciplineId}`}> {disciplineNames[league.disciplineId]} </Link>
