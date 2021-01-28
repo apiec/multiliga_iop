@@ -2,18 +2,7 @@ import React, { useState, useEffect } from 'react';
 import authService from './api-authorization/AuthorizeService'
 import { Link } from 'react-router-dom';
 
-const RacesListPast = ({ racesList = [], seasonList = {}, leagueNames = {}, disciplineNames = {} }) => {
-    
-    const [userId, setUserId] = useState();
-
-    useEffect( () => {
-        const f = async () => {
-            await authService.getUser()
-            .then(user => setUserId(user.sub))
-        }
-        f();
-    }, [])
-    
+const RacesListPast = ({ racesList = [], seasonList = {}, leagueNames = {}, disciplineNames = {} }) => {    
     return (
         <>
             <table className='table table-striped' aria-labelledby="tableLabel">
