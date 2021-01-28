@@ -41,7 +41,6 @@ const RaceDetailsPage = (props) => {
   return (
     <>
       <h1>{raceData ? raceData.name : "-"}</h1>
-      {console.log(raceData)}
       <p>{raceData ? raceData.date.substr(0,10) : "-"} {raceData ? raceData.location : "-"}</p>
       <p>{raceData ? raceData.description : "-"}</p>
       
