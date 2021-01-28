@@ -5,7 +5,7 @@ import RacesList from './RacesList';
 const RacesPage = (props) => {
     const [input, setInput] = useState('');
     const [racesListDefault, setRacesListDefault] = useState();
-    const [racesList, setRacesList] = useState();
+    const [racesList, setRacesList] = useState([]);
     const [seasonList, setSeasonList] = useState();
     const [leagueNames, setLeagueNames] = useState();
     const [disciplineNames, setDisciplineNames] = useState();
@@ -20,14 +20,14 @@ const RacesPage = (props) => {
     }
     
     const fetchSeasonData = async () => {
-        return await fetch(`season/get${props.location.search}`)
+        return await fetch(`season/get`)
         .then(response => response.json())
         .then(data => data.reduce((a, x) => ({ ...a, [x.id]: x }), {}))
         .then(data => setSeasonList(data));
     }
     
     const fetchLeagueData = async() => {
-      return await fetch(`league/get${props.location.search}`)
+      return await fetch(`league/get`)
       .then(response => response.json())
       .then(data => data.reduce((a, x) => ({ ...a, [x.id]: x }), {}))
       .then(data => setLeagueNames(data));
@@ -40,13 +40,13 @@ const RacesPage = (props) => {
       .then(data => setDisciplineNames(data));
     }       
 
-    const updateInput = async (input) => {
+    const updateInput = (input) => {
         const filtered = racesListDefault.filter(race => {
-          return race.name.toLowerCase().includes(input.toLowerCase())
-          || seasonList[race.seasonId].name.toLowerCase().includes(input.toLowerCase())
-          || leagueNames[seasonList[race.seasonId].leagueId].name.toLowerCase().includes(input.toLowerCase())
-          || disciplineNames[leagueNames[seasonList[race.seasonId].leagueId]].toLowerCase().includes(input.toLowerCase())
-        })
+          return (race.name.toLowerCase().includes(input.toLowerCase())
+          || (seasonList[race.seasonId] ? seasonList[race.seasonId].name.toLowerCase().includes(input.toLowerCase()) : false)
+          || (leagueNames[seasonList[race.seasonId].leagueId] ? leagueNames[seasonList[race.seasonId].leagueId].name.toLowerCase().includes(input.toLowerCase()) : false)
+          || (disciplineNames[leagueNames[seasonList[race.seasonId].leagueId].disciplineId] ? disciplineNames[leagueNames[seasonList[race.seasonId].leagueId].disciplineId].toLowerCase().includes(input.toLowerCase()) : false)
+        )})
         setInput(input);
         setRacesList(filtered);
       }

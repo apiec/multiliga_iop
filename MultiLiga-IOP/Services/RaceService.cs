@@ -79,6 +79,28 @@ namespace MultiLiga_IOP.Services
             return result;
         }
 
+        public async Task<bool> IsUserSignedUp(string userId, int raceId)
+        {
+            var result = await _ctx.RaceSignUps
+                .AnyAsync(su => su.ApplicationUserId == userId && su.RaceId == raceId);
+
+            return result;
+        }
+
+        public async Task<bool> SignUserOut(string userId, int raceId)
+        {
+            var signUp = await _ctx.RaceSignUps
+                .FirstOrDefaultAsync(su => su.ApplicationUserId == userId && su.RaceId == raceId);
+
+            if (signUp is object)
+            {
+                _ctx.Remove(signUp);
+                await _ctx.SaveChangesAsync();
+            }
+
+            return true;
+        }
+
         public async Task<bool> SignUserUp(string userId, int raceId)
         {
             var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Id == userId);

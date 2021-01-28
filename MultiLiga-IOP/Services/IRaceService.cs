@@ -14,5 +14,7 @@ namespace MultiLiga_IOP.Services
         Task<IList<UserPoco>> GetUsersSignedUpForRace(int raceId);
         Task<bool> SignUserUp(string userId, int raceId);
         Task<IList<RaceResultPoco>> GetResults(int raceId);
+        Task<bool> IsUserSignedUp(string userId, int raceId);
+        Task<bool> SignUserOut(string userId, int raceId);
     }
 }
