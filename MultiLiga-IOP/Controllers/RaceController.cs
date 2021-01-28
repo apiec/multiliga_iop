@@ -75,5 +75,43 @@ namespace MultiLiga_IOP.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> IsSignedUp([FromQuery] string userId, [FromQuery] int? raceId)
+        {
+            if (userId is null || raceId is null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var isSignedUp = await _raceService.IsUserSignedUp(userId, (int)raceId);
+                return(Ok(new { isSignedUp = isSignedUp }));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignOut([FromQuery] string userId, [FromQuery] int? raceId)
+        {
+            if (userId is null || raceId is null)
+            {
+                return BadRequest();
+            }
+
+            var isOk = await _raceService.SignUserOut(userId, (int)raceId);
+            if (isOk)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
