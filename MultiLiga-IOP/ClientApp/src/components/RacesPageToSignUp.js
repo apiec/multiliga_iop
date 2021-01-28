@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
-import RacesListPast from './RacesListPast';
+import RacesList from './RacesList';
+import authService from './api-authorization/AuthorizeService'
 
-const RacesPage = (props) => {
+
+const RacesPageToSignUp = (props) => {
     const [input, setInput] = useState('');
     const [racesListDefault, setRacesListDefault] = useState();
     const [racesList, setRacesList] = useState([]);
@@ -14,11 +16,11 @@ const RacesPage = (props) => {
         return await fetch(`race/get${props.location.search}`)
         .then(response => response.json())
         .then(data => {
-          return data.filter(race =>{
-              console.log(Date.parse(race.date) - Date.now())
-              return (Date.parse(race.date) < Date.now() ? race : false)
-          })
-       })
+            return data.filter(race =>{
+                console.log(Date.parse(race.date) - Date.now())
+                return (Date.parse(race.date) > Date.now() ? race : false)
+            })
+         })
         .then(data => {
            setRacesList(data) 
            setRacesListDefault(data)
@@ -56,13 +58,11 @@ const RacesPage = (props) => {
         setInput(input);
         setRacesList(filtered);
       }
-
     
     useEffect( () => {fetchRacesData()}, []);
     useEffect( () => {fetchSeasonData()}, []);
     useEffect( () => {fetchLeagueData()}, []);
     useEffect( () => {fetchDisciplineData()}, []);
-     
     return (
         <>
           <h1>Races List</h1>
@@ -70,10 +70,10 @@ const RacesPage = (props) => {
            input={input} 
            setKeyword={updateInput} 
           />
-          <RacesListPast racesList={racesList} seasonList={seasonList} leagueNames={leagueNames} disciplineNames={disciplineNames}/>
+          <RacesList racesList={racesList} seasonList={seasonList} leagueNames={leagueNames} disciplineNames={disciplineNames}/>
         </>
        );
 
 }
 
-export default RacesPage
+export default RacesPageToSignUp

@@ -41,7 +41,8 @@ const RaceDetailsPage = (props) => {
   return (
     <>
       <h1>{raceData ? raceData.name : "-"}</h1>
-      <p><ParseDate sharpDateTime={raceData ? raceData.Date: "/Date(1373555464883)/"}/> {raceData ? raceData.location : "-"}</p>
+      {console.log(raceData)}
+      <p>{raceData ? raceData.date.substr(0,10) : "-"} {raceData ? raceData.location : "-"}</p>
       <p>{raceData ? raceData.description : "-"}</p>
       
       <SearchBar 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ParseDate = (sharpDateTime) => {
     return (
         <>
-            {new Date(Date(sharpDateTime)).toLocaleDateString()}
+            {sharpDateTime.date}
         </>
         );
 }

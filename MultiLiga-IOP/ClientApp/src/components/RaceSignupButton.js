@@ -69,11 +69,11 @@ const RaceSignupButton = ({ userId, raceId }) => {
         <>
             {!isSignedUp ?
                 <>
-                    <button onClick={openSignUpModal}>Sign up!</button>
+                    <button disabled={!userId ? true : false} onClick={openSignUpModal}>Sign up!</button>
                 </>
                 :
                 <>
-                    <button onClick={openSignOutModal}>Sign out!</button>
+                    <button disabled={!userId ? true : false} onClick={openSignOutModal}>Sign out!</button>
                 </>
             }
             <Modal

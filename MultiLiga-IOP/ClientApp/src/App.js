@@ -10,6 +10,8 @@ import LeaguePage from './components/LeaguePage'
 import SeasonPage from './components/SeasonPage'
 import RacesPage from './components/RacesPage'
 import RaceDetailsPage from './components/RaceDetailsPage'
+import DisciplinePage2 from './components/DisciplinePage2'
+import RacesPageToSignUp from './components/RacesPageToSignUp'
 import './custom.css'
 
 export default class App extends Component {
@@ -25,6 +27,9 @@ export default class App extends Component {
         <Route path='/season' component={(props) => <SeasonPage {...props} key={window.location.pathname}/>} />
         <Route path='/race_details' component={(props) => <RaceDetailsPage {...props} key={window.location.pathname} />} />
         <Route path='/race' component={(props) => <RacesPage {...props} key={window.location.pathname} />} />
+        <Route path='/race_signups' component={(props) => <DisciplinePage2 {...props} key={window.location.pathname}/>} />
+        <Route path='/racelist_signups' component={(props) => <RacesPageToSignUp {...props} key={window.location.pathname} />} />
+
       </Layout>
     );
   }

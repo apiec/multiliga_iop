@@ -27,7 +27,7 @@ export class NavMenu extends Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">MultiLiga_IOP</NavbarBrand>
+            <NavbarBrand tag={Link} to="/">Spirit of Sport</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
@@ -35,7 +35,7 @@ export class NavMenu extends Component {
                     <NavLink tag={Link} className="text-dark" to="/discipline">Results</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/league">Your journey czy inny chuj</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/race_signups">Your journey</NavLink>
                 </NavItem>
                 <LoginMenu>
                 </LoginMenu>
